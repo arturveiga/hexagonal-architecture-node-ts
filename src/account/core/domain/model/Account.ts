@@ -12,9 +12,6 @@ class Account {
   }
 
   public credit(creditAmount: number) {
-    if (!creditAmount) {
-      ErrorCore.required("Credit amount");
-    }
     if (creditAmount <= 0) {
       ErrorCore.required("Credit amount");
     }
@@ -22,16 +19,19 @@ class Account {
   }
 
   public debit(debitAmount: number) {
-    if (!debitAmount) {
-      ErrorCore.required("Debit amount");
-    }
     if (debitAmount <= 0) {
       ErrorCore.required("Debit amount");
     }
-    if (this.balance - debitAmount > 0) {
+    if (debitAmount > this.balance) {
       ErrorCore.insufficientFunds();
     }
 
     this.balance -= debitAmount;
   }
+
+  public getBalance(): number {
+    return this.balance;
+  }
 }
+
+export default Account;
